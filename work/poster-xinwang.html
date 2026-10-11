@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移动运营海报设计 · He 天波 · 作品集</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%2323231F'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' fill='%23F7F7F4' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@200;300;400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#F7F7F4;
+    --ink:#23231F;
+    --stone:#7B7B73;
+    --line:#E5E4DE;
+    --soft:#EFEFEA;
+    --font-sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scrollbar-gutter:stable;}
+  body{
+    background:radial-gradient(120% 90% at 50% -12%, #FFFFFF 0%, #FAFAF7 50%, #ECE9E2 100%);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    font-weight:300;
+    font-size:15px;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--ink);color:var(--paper);}
+  a{color:inherit;}
+
+  /* ===== 顶部面包屑 ===== */
+  .crumbs{
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,20,20,.55);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);-webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .crumbs-in{
+    max-width:1120px;margin:0 auto;padding:0 26px;
+    height:56px;display:flex;align-items:center;gap:10px;
+    font-size:13px;letter-spacing:.05em;color:rgba(255,255,255,.55);
+  }
+  .crumbs .back{
+    display:inline-flex;align-items:center;gap:3px;
+    text-decoration:none;color:#111;
+    padding:3px 12px;margin-right:8px;
+    border:none;border-radius:999px;background:rgba(255,255,255,.9);
+    transition:background .2s,color .2s;
+  }
+  .crumbs .back:hover{background:rgba(255,255,255,.6);color:#111;}
+  .crumbs a{text-decoration:none;color:rgba(255,255,255,.55);transition:color .2s;}
+  .crumbs a:hover{color:#fff;}
+  .crumbs .sep{color:rgba(255,255,255,.25);}
+  .crumbs .cur{color:#fff;font-weight:400;}
+
+  /* ===== 项目头 ===== */
+  .head{
+    max-width:1120px;margin:0 auto;padding:70px 26px 50px;
+  }
+  .eyebrow{font-size:12px;letter-spacing:.2em;color:var(--stone);margin-bottom:16px;}
+  .head h1{font-weight:600;font-size:clamp(28px,3.6vw,42px);letter-spacing:.04em;line-height:1.2;}
+  .head .meta{margin-top:14px;font-size:13.5px;color:var(--stone);letter-spacing:.06em;}
+  .head .desc{margin-top:26px;max-width:64ch;color:var(--stone);font-size:15px;}
+  .head .desc b{color:var(--ink);font-weight:400;}
+
+  /* ===== 4 列瀑布流 ===== */
+  .grid4{
+    max-width:1120px;margin:0 auto;
+    padding:0 26px 40px;
+    columns:4;column-gap:20px;
+  }
+  .grid4 figure{break-inside:avoid;margin:0 0 20px;}
+  .grid4 img{
+    display:block;width:100%;height:auto;
+    border:1px solid var(--line);border-radius:2px;
+    background:var(--soft);
+    cursor:zoom-in;
+  }
+  @media (max-width:900px){
+    .grid4{columns:3;column-gap:14px;}
+    .grid4 figure{margin-bottom:14px;}
+  }
+  @media (max-width:720px){
+    .grid4{columns:2;column-gap:12px;}
+  }
+
+  /* ===== 底部返回 ===== */
+  .foot{
+    max-width:1120px;margin:0 auto;padding:30px 26px 90px;
+    display:flex;justify-content:center;align-items:center;gap:16px;
+    border-top:1px solid var(--line);
+  }
+  .foot a{
+    text-decoration:none;font-size:18px;letter-spacing:.1em;color:var(--ink);
+    background:transparent;border:1px solid var(--stone);border-radius:999px;
+    padding:10px 24px;
+    transition:background .2s,color .2s;
+    display:inline-flex;align-items:center;gap:4px;
+  }
+  .foot a svg{width:18px;height:18px;}
+  .foot a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  @media (max-width:720px){
+    .head{padding:46px 20px 34px;}
+    .grid4{padding:0 20px 24px;}
+    .foot{flex-direction:column;padding:26px 20px 64px;}
+    .crumbs-in{padding:0 16px;font-size:12.5px;}
+    .crumbs .back span{display:none;}
+  }
+
+  /* ===== Lightbox 放大查看 ===== */
+  .lb{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(0,0,0,.88);
+    display:none;align-items:center;justify-content:center;
+  }
+  .lb.open{display:flex;}
+  .lb img{
+    max-width:90vw;max-height:88vh;
+    box-shadow:0 12px 48px rgba(0,0,0,.4);
+    user-select:none;
+    opacity:0;transition:opacity .18s ease;
+  }
+  .lb img.loaded{opacity:1;}
+  .lb .lb-btn{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:48px;height:48px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+    color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s;
+  }
+  .lb .lb-btn:hover{background:rgba(255,255,255,.28);}
+  .lb .lb-prev{left:24px;}
+  .lb .lb-next{right:24px;}
+  .lb .lb-close{
+    position:absolute;top:18px;right:22px;
+    width:64px;height:64px;border-radius:50%;
+    background:transparent;border:none;color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .lb .lb-close:hover{opacity:.7;}
+  .lb .lb-count{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.1em;
+  }
+  @media (max-width:720px){
+    .lb .lb-prev{left:8px;}
+    .lb .lb-next{right:8px;}
+  }
+
+  /* ===== 回到顶部悬浮按钮 ===== */
+  .to-top{
+    position:fixed;right:48px;bottom:48px;z-index:90;
+    width:46px;height:46px;border-radius:50%;
+    background:var(--paper);border:1px solid var(--line);
+    color:var(--ink);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(35,35,31,.08);
+    transition:background .2s,color .2s,opacity .2s;
+    opacity:0;pointer-events:none;
+  }
+  .to-top.show{opacity:1;pointer-events:auto;}
+  .to-top:hover{background:var(--ink);color:var(--paper);}
+  @media (max-width:720px){
+    .to-top{right:16px;bottom:16px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 面包屑导航 -->
+<header class="crumbs">
+  <div class="crumbs-in">
+    <a class="back" href="../index.html#poster" title="返回 海报设计列表">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      <span>返回</span>
+    </a>
+    <a href="../index.html#profile">首页</a>
+    <span class="sep">/</span>
+    <a href="../index.html#poster">海报设计</a>
+    <span class="sep">/</span>
+    <span class="cur">移动运营海报设计</span>
+  </div>
+</header>
+
+<!-- 项目头 -->
+<section class="head">
+  <div class="eyebrow">Poster Design · Marketing Material</div>
+  <h1>移动运营海报设计</h1>
+  <div class="meta">运营设计物料</div>
+  <p class="desc">
+    围绕<b>四川移动</b>业务线输出的宣传海报与热点图合集，覆盖
+    <b>流量包、充值日、号卡、权益、会员、节气节日、直播与秒杀</b>等营销节点。
+  </p>
+</section>
+
+<!-- 4 列瀑布流：从上到下依次排列 -->
+<main class="grid4">
+
+  <figure><img width="750" height="1340" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/01.jpg" alt="海报 01"></figure>
+  <figure><img width="750" height="1340" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/02.jpg" alt="海报 02"></figure>
+  <figure><img width="750" height="1333" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/03.jpg" alt="海报 03"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/04.jpg" alt="海报 04"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/05.jpg" alt="海报 05"></figure>
+  <figure><img width="680" height="1235" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/06.jpg" alt="海报 06"></figure>
+  <figure><img width="750" height="1333" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/07.png" alt="海报 07"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/08.jpg" alt="海报 08"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/09.jpg" alt="海报 09"></figure>
+  <figure><img width="750" height="1333" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/10.jpg" alt="海报 10"></figure>
+  <figure><img width="750" height="1340" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/11.jpg" alt="海报 11"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/12.jpg" alt="海报 12"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/13.jpg" alt="海报 13"></figure>
+  <figure><img width="680" height="1235" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/14.jpg" alt="海报 14"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/15.png" alt="海报 15"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/16.jpg" alt="海报 16"></figure>
+  <figure><img width="750" height="1410" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/17.jpg" alt="海报 17"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/18.png" alt="海报 18"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/19.jpg" alt="海报 19"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/20.png" alt="海报 20"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/21.jpg" alt="海报 21"></figure>
+  <figure><img width="750" height="1335" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/22.jpg" alt="海报 22"></figure>
+  <figure><img width="680" height="1235" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/23.jpg" alt="海报 23"></figure>
+  <figure><img width="750" height="1333" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/24.jpg" alt="海报 24"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/25.jpg" alt="海报 25"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/26.png" alt="海报 26"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/27.jpg" alt="海报 27"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/28.jpg" alt="海报 28"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/29.png" alt="海报 29"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/30.jpg" alt="海报 30"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/31.jpg" alt="海报 31"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/32.jpg" alt="海报 32"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/33.jpg" alt="海报 33"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/34.png" alt="海报 34"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/35.jpg" alt="海报 35"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/36.jpg" alt="海报 36"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/37.jpg" alt="海报 37"></figure>
+  <figure><img width="680" height="1235" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/38.jpg" alt="海报 38"></figure>
+  <figure><img width="750" height="1333" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/39.png" alt="海报 39"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/40.png" alt="海报 40"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/41.jpg" alt="海报 41"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/42.jpg" alt="海报 42"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/43.jpg" alt="海报 43"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/44.png" alt="海报 44"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/45.jpg" alt="海报 45"></figure>
+  <figure><img width="750" height="1340" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/46.jpg" alt="海报 46"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/47.png" alt="海报 47"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/48.jpg" alt="海报 48"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/49.jpg" alt="海报 49"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/50.jpg" alt="海报 50"></figure>
+  <figure><img width="750" height="1340" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/51.jpg" alt="海报 51"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/52.jpg" alt="海报 52"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/53.jpg" alt="海报 53"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/54.jpg" alt="海报 54"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/55.jpg" alt="海报 55"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/56.jpg" alt="海报 56"></figure>
+  <figure><img width="750" height="1333" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/57.png" alt="海报 57"></figure>
+  <figure><img width="750" height="1438" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/58.png" alt="海报 58"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/59.png" alt="海报 59"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/60.png" alt="海报 60"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/61.jpg" alt="海报 61"></figure>
+  <figure><img width="750" height="1340" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/62.jpg" alt="海报 62"></figure>
+  <figure><img width="750" height="1334" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/63.jpg" alt="海报 63"></figure>
+  <figure><img width="680" height="1235" loading="lazy" decoding="async" src="../assets/work/poster-xinwang/64.jpg" alt="海报 64"></figure>
+
+</main>
+
+<!-- 底部 -->
+<footer class="foot">
+  <a href="../index.html#poster">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    返回
+  </a>
+</footer>
+
+<!-- Lightbox 放大查看 -->
+<button class="to-top" id="toTop" aria-label="回到顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="关闭">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一张">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="下一张">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  try{
+    var imgs = Array.prototype.slice.call(document.querySelectorAll(".grid4 img"));
+    var lb = document.getElementById("lb");
+    var lbImg = document.getElementById("lbImg");
+    var lbCount = document.getElementById("lbCount");
+    var idx = 0;
+    function show(i){
+      idx = (i + imgs.length) % imgs.length;
+      lbImg.classList.remove("loaded");
+      lbImg.alt = imgs[idx].alt || "";
+      lbCount.textContent = (idx+1) + " / " + imgs.length;
+      var want = imgs[idx].src;
+      if(lbImg.src === want && lbImg.complete && lbImg.naturalWidth){
+        requestAnimationFrame(function(){ lbImg.classList.add("loaded"); });
+      } else {
+        var tmp = new Image();
+        tmp.onload = function(){ lbImg.src = want; requestAnimationFrame(function(){ lbImg.classList.add("loaded"); }); };
+        tmp.onerror = function(){ lbImg.src = want; requestAnimationFrame(function(){ lbImg.classList.add("loaded"); }); };
+        tmp.src = want;
+      }
+      // 预加载前后图
+      new Image().src = imgs[(idx+1+imgs.length)%imgs.length].src;
+      new Image().src = imgs[(idx-1+imgs.length)%imgs.length].src;
+    }
+    function open(i){
+      show(i);
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function close(){
+      lb.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    imgs.forEach(function(img, i){
+      img.addEventListener("click", function(){ open(i); });
+    });
+    document.getElementById("lbClose").addEventListener("click", close);
+    document.getElementById("lbPrev").addEventListener("click", function(e){ e.stopPropagation(); show(idx-1); });
+    document.getElementById("lbNext").addEventListener("click", function(e){ e.stopPropagation(); show(idx+1); });
+    lb.addEventListener("click", function(e){ if(e.target === lb) close(); });
+    window.addEventListener("keydown", function(e){
+      if(!lb.classList.contains("open")) return;
+      if(e.key === "Escape") close();
+      else if(e.key === "ArrowLeft") show(idx-1);
+      else if(e.key === "ArrowRight") show(idx+1);
+    });
+    var lbWheelLock = 0;
+    lb.addEventListener("wheel", function(e){
+      if(!lb.classList.contains("open")) return;
+      e.preventDefault();
+      if(Date.now() < lbWheelLock) return;
+      if(Math.abs(e.deltaY) < 12) return;
+      lbWheelLock = Date.now() + 600;
+      show(e.deltaY > 0 ? idx+1 : idx-1);
+    }, {passive:false});
+
+    var toTop = document.getElementById("toTop");
+    window.addEventListener("scroll", function(){
+      if(window.scrollY > 400) toTop.classList.add("show");
+      else toTop.classList.remove("show");
+    }, {passive:true});
+    toTop.addEventListener("click", function(){
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  }catch(err){}
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hé 天波 · 作品集</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%2323231F'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' fill='%23F7F7F4' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@200;300;400;500&display=swap">
+<style>
+  :root{
+    --paper:#F7F7F4;
+    --ink:#23231F;
+    --stone:#7B7B73;
+    --line:#E5E4DE;
+    --moss:#55604F;
+    --soft:#EFEFEA;
+    --dash:#D9D8D1;
+    --font-display:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    --font-sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scrollbar-gutter:stable;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{
+    background:radial-gradient(120% 90% at 50% -12%, #FFFFFF 0%, #FAFAF7 50%, #ECE9E2 100%);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    font-weight:300;
+    font-size:15px;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--ink);color:var(--paper);}
+  a{color:inherit;}
+
+  /* ===== 整体布局：居中容器 ===== */
+  .layout{max-width:1320px;margin:0 auto;padding:0 26px;display:flex;align-items:flex-start;}
+
+  /* ===== 左侧导航 ===== */
+  .side{
+    position:sticky;top:0;height:100vh;
+    width:19%;min-width:200px;max-width:244px;flex:none;
+    background:linear-gradient(180deg,#FFFFFF 0%,#E5E3DC 100%);
+    border-right:1px solid var(--line);
+    display:flex;flex-direction:column;
+    padding:34px 22px 28px 0;margin-right:38px;z-index:60;
+  }
+  /* 导航渐变背景向左延伸到屏幕最左侧（内容位置不变） */
+  .side::before{
+    content:"";position:absolute;top:0;bottom:0;right:100%;
+    width:calc((100vw - 1320px)/2 + 26px);
+    background:linear-gradient(180deg,#FFFFFF 0%,#E5E3DC 100%);
+  }
+  .brand{
+    text-decoration:none;display:flex;align-items:center;min-height:44px;
+  }
+  .brand img{display:block;height:60px;width:auto;}
+  .snav{display:flex;flex-direction:column;gap:6px;margin-top:46px;}
+  .snav a{
+    display:flex;align-items:center;gap:13px;
+    color:var(--stone);text-decoration:none;
+    font-size:14px;letter-spacing:.1em;font-weight:500;
+    padding:11px 14px;min-height:44px;border-radius:8px;
+    transition:background .22s,color .22s;
+  }
+  .snav a .ic{width:18px;height:18px;flex:none;}
+  .snav a:hover{color:var(--ink);background:var(--soft);}
+  .snav a.active{
+    background:linear-gradient(90deg,var(--ink) 0%,rgba(35,35,31,0) 100%);
+    color:var(--paper);font-weight:500;
+  }
+  .side-foot{margin-top:auto;display:flex;flex-direction:column;gap:18px;}
+  .side-foot .btn{width:100%;text-align:center;}
+  .side-note{font-size:12.5px;letter-spacing:.06em;color:var(--stone);line-height:1.7;display:flex;align-items:center;gap:6px;}
+  .side-note .note-ic{width:13px;height:13px;flex:none;}
+
+  /* ===== 移动端顶栏 ===== */
+  .topbar{display:none;}
+  .mask{display:none;}
+
+  /* ===== 主内容 ===== */
+  .main{flex:1;min-width:0;margin-left:0;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 8px;}
+  section{scroll-margin-top:0;}
+  .sec{padding:56px 0;border-top:1px solid var(--line);}
+  .sec.first{border-top:none;padding-top:90px;}
+  section[id]{scroll-margin-top:0;}
+  .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--stone);font-weight:400;margin-bottom:10px;}
+  .sec-title{font-family:var(--font-display);font-weight:600;font-size:30px;letter-spacing:.05em;}
+  .tag{
+    display:inline-block;border:1px solid var(--line);border-radius:999px;
+    padding:5px 15px;font-size:12.5px;color:var(--ink);letter-spacing:.06em;
+    background:transparent;
+  }
+  .ph{color:var(--stone);font-size:12px;letter-spacing:.05em;}
+  .btn{
+    display:inline-block;border:1px solid var(--ink);border-radius:2px;
+    padding:11px 26px;font-size:14px;letter-spacing:.08em;color:var(--ink);
+    background:transparent;cursor:pointer;text-decoration:none;
+    transition:background .2s,color .2s;
+    font-family:var(--font-sans);font-weight:400;
+  }
+  .btn:hover{background:var(--ink);color:var(--paper);}
+  .btn-fill{background:var(--ink);color:var(--paper);}
+  .btn-fill:hover{background:var(--paper);color:var(--ink);}
+
+  /* ===== 个人信息 ===== */
+  .hero-eyebrow{font-size:12px;letter-spacing:.22em;color:var(--stone);margin-bottom:26px;}
+  .hero-name{font-family:var(--font-display);font-weight:700;font-size:clamp(44px,6vw,76px);line-height:1.12;letter-spacing:.02em;}
+  .hero-role{margin-top:26px;font-size:17px;letter-spacing:.1em;font-weight:300;}
+  .hero-skills{margin-top:30px;}
+  .hero-desc{margin-top:14px;max-width:52ch;color:var(--stone);font-size:15px;}
+  .hero-cta{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;}
+  .avail{margin-top:26px;display:flex;align-items:center;gap:9px;color:var(--stone);font-size:13px;letter-spacing:.05em;}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--moss);display:inline-block;}
+
+  /* ===== 个人信息 · 头像 ===== */
+  .hero-inner{display:flex;align-items:flex-start;gap:64px;}
+  .hero-text{flex:1;min-width:0;}
+  .hero-photo{flex:none;width:250px;}
+  .hero-photo img{
+    display:block;width:100%;aspect-ratio:3/4;object-fit:cover;
+    border:1px solid var(--line);border-radius:2px;background:var(--soft);
+  }
+
+  .sub-head{display:flex;align-items:center;gap:16px;margin:76px 0 30px;}
+  .sub-head:first-of-type{margin-top:0;}
+  .sub-title{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:.06em;}
+  .sub-line{flex:1;height:1px;background:var(--line);}
+  .about-grid{display:block;}
+  .about-p{margin-bottom:16px;color:var(--stone);}
+  .about-p b{color:var(--ink);font-weight:400;}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px;}
+  .timeline{margin-top:40px;display:grid;grid-template-columns:110px 24px 1fr;row-gap:26px;position:relative;}
+  .timeline::before{content:"";position:absolute;top:6px;bottom:6px;left:122px;width:1px;background:var(--line);}
+  .tl-time{font-size:13px;color:var(--stone);letter-spacing:.06em;padding-top:3px;}
+  .tl-axis{position:relative;justify-self:center;width:24px;align-self:stretch;}
+  .tl-dot{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:var(--ink);}
+  .tl-content{font-size:14px;}
+  .tl-content .tl-role{font-weight:400;letter-spacing:.05em;}
+  .tl-content .tl-co{color:var(--ink);font-size:14.5px;font-weight:400;margin-top:4px;letter-spacing:.02em;}
+  .tl-content .tl-desc{color:var(--stone);font-size:15px;margin-top:4px;line-height:1.7;}
+  .contact-line{font-family:var(--font-display);font-weight:300;font-size:clamp(26px,3.4vw,38px);letter-spacing:.06em;line-height:1.4;}
+  .contact-meta{margin-top:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;max-width:720px;}
+  .c-item .c-label{font-size:12px;letter-spacing:.16em;color:var(--stone);margin-bottom:6px;}
+  .c-item .c-value{font-size:15px;letter-spacing:.04em;}
+  .c-item .c-value a{text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .2s,color .2s;}
+  .c-item .c-value a:hover{border-color:var(--ink);color:var(--ink);}
+  .contact-cta{margin-top:36px;}
+
+  /* ===== 作品板块 ===== */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:42px 26px;}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:46px 34px;}
+  .work{text-decoration:none;display:block;cursor:pointer;}
+  .work-cover{
+    aspect-ratio:4/3;background:var(--soft);
+    border:1px solid var(--line);
+    border-radius:10px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    transition:background .25s, box-shadow .35s ease;
+    overflow:hidden;
+  }
+  .work-cover img{
+    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .work:hover .work-cover{
+    background:#EAE9E3;
+    box-shadow:0 14px 36px rgba(35,35,31,.10);
+    border-color:#D6D4CC;
+  }
+  .work:hover .work-cover img{
+    transform:scale(1.045);
+  }
+  .work-name{margin-top:16px;font-family:var(--font-display);font-weight:400;font-size:16.5px;letter-spacing:.03em;}
+  .work-meta{margin-top:5px;font-size:12.5px;color:var(--stone);letter-spacing:.06em;}
+  .video-cover{
+    aspect-ratio:4/3;background:var(--soft);
+    border:none;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .25s, box-shadow .35s ease;position:relative;
+    overflow:hidden;
+  }
+  .video-cover img, .video-cover video{
+    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .work:hover .video-cover{
+    background:#EAE9E3;
+    box-shadow:0 14px 36px rgba(35,35,31,.10);
+  }
+  .work:hover .video-cover img,
+  .work:hover .video-cover video{
+    transform:scale(1.045);
+  }
+  .work:hover .work-cover{
+    box-shadow:0 14px 36px rgba(35,35,31,.10);
+  }
+  .play{
+    width:46px;height:46px;border:1px solid var(--dash);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;background:var(--paper);
+  }
+  .play svg{width:15px;height:15px;margin-left:2px;}
+  .vlabel{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:var(--stone);font-size:12px;letter-spacing:.06em;}
+  .soon .work-cover{border-style:dashed;border-color:var(--line);background:transparent;color:var(--stone);}
+  .soon:hover .work-cover{background:transparent;}
+
+  /* ===== Toast ===== */
+  #toast{
+    position:fixed;left:50%;bottom:34px;transform:translate(-50%,16px);
+    background:var(--ink);color:var(--paper);font-size:13px;letter-spacing:.06em;
+    padding:11px 22px;border-radius:2px;opacity:0;pointer-events:none;
+    transition:opacity .25s,transform .25s;z-index:99;white-space:nowrap;
+  }
+  #toast.show{opacity:1;transform:translate(-50%,0);}
+
+  /* ===== 响应式 ===== */
+  @media (max-width:900px){
+    .layout{padding:0;}
+    .side{
+      position:fixed;left:0;top:0;bottom:0;height:auto;margin:0;
+      display:none;
+      width:min(300px,80vw);padding:26px 24px;box-shadow:12px 0 32px rgba(35,35,31,.08);
+    }
+    .side.open{display:flex;animation:navIn .28s ease;}
+    @keyframes navIn{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
+    .topbar{
+      display:flex;position:fixed;top:0;left:0;right:0;z-index:50;
+      height:56px;align-items:center;justify-content:space-between;
+      padding:0 20px;background:var(--paper);border-bottom:1px solid var(--line);
+    }
+    .topbar .brand img{height:36px;}
+    .burger{background:none;border:none;cursor:pointer;padding:11px;display:flex;}
+    .mask{position:fixed;inset:0;background:rgba(35,35,31,.25);z-index:55;}
+    .mask.show{display:block;}
+    .main{margin-left:0;}
+    .wrap{padding:0 20px;}
+    .sec{padding:60px 0;}
+    .sec.first{padding-top:104px;}
+    .hero-inner{flex-direction:column;gap:34px;}
+    .hero-photo{order:-1;display:flex;justify-content:center;width:auto;}
+    .hero-photo img{width:min(190px,56vw);}
+    .grid3{grid-template-columns:repeat(2,1fr);gap:36px 22px;}
+    .grid2{grid-template-columns:1fr;gap:40px;}
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    .contact-meta{grid-template-columns:repeat(2,1fr);gap:20px;max-width:100%;}
+    .timeline{grid-template-columns:76px 20px 1fr;}
+    .timeline::before{left:86px;}
+    .sub-head{margin:56px 0 26px;}
+    .tag{font-size:13px;padding:4px 11px;}
+    .work-meta{font-size:13px;}
+    .tl-time{font-size:13.5px;}
+    .ph{font-size:12.5px;}
+  }
+  @media (max-width:560px){
+    .grid3{grid-template-columns:1fr;}
+    .hero-name{font-size:clamp(44px,11vw,64px);}
+    .contact-meta{grid-template-columns:1fr;gap:18px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ===== 左侧导航 ===== -->
+<aside class="side" id="side">
+  <a class="brand" href="#profile" aria-label="作品集"><img src="assets/logo.png" alt="作品集"></a>
+  <nav class="snav" id="snav">
+    <a href="#profile" class="active">
+      <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.8-6 8-6s6.5 2 8 6c.3 1-1 2-2 2H6c-1 0-1.9-1-2-2z"/></svg>
+      <span>个人信息</span>
+    </a>
+    <a href="#ui">
+      <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="7.5" height="7.5" rx="1.5"/><rect x="12.5" y="4" width="7.5" height="7.5" rx="1.5"/><rect x="4" y="12.5" width="7.5" height="7.5" rx="1.5"/><rect x="12.5" y="12.5" width="7.5" height="7.5" rx="1.5"/></svg>
+      <span>UI设计</span>
+    </a>
+    <a href="#poster">
+      <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6zm5 5.5a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6zM5.5 17l4.5-4.5 3 3 2.5-2.5 3.5 3.5V18a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-1z"/></svg>
+      <span>海报设计</span>
+    </a>
+    <a href="#motion">
+      <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.2 5.3 5.8.5-4.4 3.8 1.3 5.7L12 15.5 7.1 18.3l1.3-5.7L4 8.8l5.8-.5L12 3z"/><circle cx="19.5" cy="18.5" r="2"/></svg>
+      <span>动效设计</span>
+    </a>
+    <a href="#video">
+      <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H4zm13 3.2v5.6l4 2.4V6.8l-4 2.4z"/></svg>
+      <span>视频制作</span>
+    </a>
+  </nav>
+  <div class="side-foot">
+    <div class="side-note">此网页由 AI Agent 设计！</div>
+  </div>
+</aside>
+<div class="mask" id="mask"></div>
+
+<!-- ===== 移动端顶栏 ===== -->
+<header class="topbar">
+  <a class="brand" href="#profile" aria-label="作品集"><img src="assets/logo.png" alt="作品集"></a>
+  <button class="burger" id="burger" aria-label="菜单">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#23231F" stroke-width="1.3"><line x1="3" y1="7" x2="19" y2="7"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="15" x2="19" y2="15"/></svg>
+  </button>
+</header>
+
+<main class="main">
+
+  <!-- ===== 个人信息 ===== -->
+  <section id="profile" class="sec first active">
+    <div class="wrap">
+
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-eyebrow">He Tianbo · Portfolio — 2026</div>
+          <h1 class="hero-name">hé 天波</h1>
+          <p class="hero-role">UI 设计师 · 视觉设计</p>
+          <div class="hero-skills">
+            <div class="eyebrow">Skills & Tools</div>
+            <div class="chips">
+              <span class="tag">Photoshop</span>
+              <span class="tag">Figma</span>
+              <span class="tag">CorelDRAW</span>
+              <span class="tag">Axure</span>
+              <span class="tag">After Effects</span>
+              <span class="tag">Spine 动画</span>
+              <span class="tag">AIGC / AI Agent</span>
+              <span class="tag">UI 设计</span>
+              <span class="tag">海报设计</span>
+              <span class="tag">动效设计</span>
+              <span class="tag">视频剪辑</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img src="assets/avatar.jpg" alt="hé 天波 · 头像">
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-title">关于我</span>
+        <span class="sub-line"></span>
+        <span class="eyebrow" style="margin:0;">About</span>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p class="about-p">你好，我是 <b>何天波</b>，UI 设计师，坐标成都。平面设计专业出身，拥有 <b>10 年以上</b>设计经验，今年 34 岁。</p>
+          <p class="about-p">多年的 UI 与平面视觉设计经验，思维成熟理性、以用户为导向；拥有完整大型系统项目经验（APP、PC 端、后台管理），重视产品交互体验设计，深入理解产品需求与用户场景。</p>
+          <p class="about-p">精通 Ps、Figma、CorelDRAW、Axure、AE、Spine 动画，擅长 UI 动效、视频特效与小游戏动画设计；熟悉 AIGC 与 AI Agent 工具（CodeX、豆包办公等），用其提升效率、优化工作流。</p>
+          <div class="timeline">
+            <div class="tl-time">2021.06 — 2025.12</div>
+            <div class="tl-axis"><span class="tl-dot"></span></div>
+            <div class="tl-content"><div class="tl-role">UI 设计师 · 4 年</div><div class="tl-co">南京欣网互联科技（四川）有限公司</div><div class="tl-desc">中国移动四川 APP 的 UI 与交互设计，版本优化迭代、需求评审、方案落地与测试验收；负责营销活动 H5、小游戏 UI 与动效设计，以及流量、话费、权益、宽带、号卡等产品宣传物料。</div></div>
+
+            <div class="tl-time">2015.01 — 2021.01</div>
+            <div class="tl-axis"><span class="tl-dot"></span></div>
+            <div class="tl-content"><div class="tl-role">UI 设计师（UI 负责人）· 5 年</div><div class="tl-co">四川我要去哪科技股份有限公司</div><div class="tl-desc">主导企业级 SaaS 差旅平台「差旅壹号」全程 UI 与交互设计：需求调研 → 产品方案 → UI 交互方案 → 开发测试验收，涵盖机票、酒店、网约车、审批报销等业务线，含 APP 端、PC 端（www.517la.com）及后台管理系统。</div></div>
+
+            <div class="tl-time">2013.02 — 2014.12</div>
+            <div class="tl-axis"><span class="tl-dot"></span></div>
+            <div class="tl-content"><div class="tl-role">平面设计 · 2 年</div><div class="tl-co">成都蓝色飞扬广告艺术有限公司</div><div class="tl-desc">参与地产、家装品牌服务项目（鑫佰利装饰、山顶装饰等），从品牌市场定位、Logo、VI 视觉系统到品牌延展、线下物料及线上网站设计全程参与。</div></div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- ===== UI作品 ===== -->
+  <section id="ui" class="sec">
+    <div class="wrap">
+      <div class="eyebrow">UI Design</div>
+      <h2 class="sec-title">UI设计</h2>
+      <div class="grid3" style="margin-top:40px;">
+
+        <!-- 差旅壹号：链接到详情页 work/chailv.html（置顶） -->
+        <a class="work" href="work/chailv.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/chailv/cover.png" alt="差旅壹号 封面" style="width:100%;height:100%;object-fit:fill;display:block;">
+          </div>
+          <div class="work-name">差旅壹号服务云平台</div>
+          <div class="work-meta">差旅管理SaaS系统</div>
+        </a>
+
+        <!-- 四川移动APP：链接到详情页 work/xinwang.html -->
+        <a class="work" href="work/xinwang.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/xinwang/01.png" alt="四川移动APP 封面" style="width:100%;height:100%;object-fit:cover;object-position:left center;display:block;">
+          </div>
+          <div class="work-name">四川移动通信</div>
+          <div class="work-meta">运营类UI设计</div>
+        </a>
+
+        <!-- HMI：链接到详情页 work/hmi.html -->
+        <a class="work" href="work/hmi.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/hmi/01.png" alt="HMI 封面" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;">
+          </div>
+          <div class="work-name">车载HMI界面设计</div>
+          <div class="work-meta">车载UI概念设计</div>
+        </a>
+
+        <!-- 祈愿猫：链接到详情页 work/qiyuanmao.html -->
+        <a class="work" href="work/qiyuanmao.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/qiyuanmao/cover.png" alt="祈愿猫 封面" style="width:100%;height:100%;object-fit:fill;display:block;">
+          </div>
+          <div class="work-name">祈愿猫 · 社交小程序</div>
+          <div class="work-meta">塔罗玄学社交应用</div>
+        </a>
+
+        <!-- 竞速英才游戏 -->
+        <a class="work" href="work/jingsu.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/jingsu/cover.png" alt="竞速英才游戏 封面" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="work-name">竞速英才 · 游戏</div>
+          <div class="work-meta">无人机竞速游戏UI设计</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 海报作品 ===== -->
+  <section id="poster" class="sec">
+    <div class="wrap">
+      <div class="eyebrow">Poster Design</div>
+      <h2 class="sec-title">海报设计</h2>
+      <div class="grid3" style="margin-top:40px;">
+
+        <a class="work" href="work/poster-xinwang.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/poster-xinwang/cover.png" alt="移动运营海报设计 封面" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="work-name">移动运营海报设计</div>
+          <div class="work-meta">运营设计物料</div>
+        </a>
+
+        <a class="work" href="work/home-poster.html">
+          <div class="work-cover" style="padding:0;overflow:hidden;">
+            <img src="assets/work/home-poster/cover.png" alt="家装类海报设计 封面" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="work-name">家装类海报设计</div>
+          <div class="work-meta">家装宣传海报与平面设计</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 动效设计 ===== -->
+  <section id="motion" class="sec">
+    <div class="wrap">
+      <div class="eyebrow">Motion Design</div>
+      <h2 class="sec-title">动效设计</h2>
+      <div class="grid3" style="margin-top:40px;">
+
+        <a class="work" href="work/totoo.html">
+          <div class="work-cover" style="background:#EFEFEA;overflow:hidden;">
+            <img src="assets/work/totoo/待机.gif" alt="totoo 表情动效封面" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="work-name">表情动效设计</div>
+          <div class="work-meta">AI儿童硬件产品</div>
+        </a>
+
+        <a class="work" href="work/other-motion.html">
+          <div class="work-cover" style="background:#EFEFEA;overflow:hidden;">
+            <img src="assets/work/other-motion/普卡.gif" alt="其他动效设计封面" style="width:100%;height:100%;object-fit:cover;object-position:right center;display:block;">
+          </div>
+          <div class="work-name">移动运营相关动效</div>
+          <div class="work-meta">AE动效・spine动效</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 视频 ===== -->
+  <section id="video" class="sec" style="padding-bottom:50px;">
+    <div class="wrap">
+      <div class="eyebrow">Video</div>
+      <h2 class="sec-title">视频制作</h2>
+      <div class="grid3" style="margin-top:40px;">
+
+        <a class="work" href="work/video-totoo.html">
+          <div class="video-cover" style="background:#EFEFEA;overflow:hidden;position:relative;">
+            <img src="assets/work/video/cover.png" alt="Totoo 产品宣传视频封面" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;border:none;display:block;">
+            <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          </div>
+          <div class="work-name">AI制作产品宣传片</div>
+          <div class="work-meta">AI视频生成与剪辑</div>
+        </a>
+
+        <a class="work" href="work/video-annual.html">
+          <div class="video-cover" style="background:#EFEFEA;overflow:hidden;position:relative;">
+            <img src="assets/work/video/cover2.png" alt="AE制作运营活动视频封面" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;border:none;display:block;">
+            <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          </div>
+          <div class="work-name">AE制作运营活动视频</div>
+          <div class="work-meta">AE 制作伪 3D 视频</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 底部感谢 ===== -->
+  <section id="thanks" class="sec" style="border-top:1px solid var(--line);text-align:left;padding:100px 0 140px;">
+    <div class="wrap">
+      <div style="font-size:clamp(48px,7vw,88px);font-weight:700;letter-spacing:-.01em;color:var(--ink);line-height:1;">thank you !</div>
+      <div style="margin-top:36px;display:inline-flex;align-items:center;gap:18px;font-size:15px;letter-spacing:.3em;color:var(--ink);">
+        <span>感</span><span style="width:40px;height:1px;background:var(--ink);display:inline-block;"></span>
+        <span>谢</span><span style="width:40px;height:1px;background:var(--ink);display:inline-block;"></span>
+        <span>查</span><span style="width:40px;height:1px;background:var(--ink);display:inline-block;"></span>
+        <span>阅</span>
+      </div>
+      <div style="margin-top:80px;font-size:14px;letter-spacing:.15em;color:var(--stone);">期待与你一起，把设计做好。</div>
+    </div>
+  </section>
+
+</main>
+
+</div><!-- /.layout -->
+
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+  "use strict";
+  try{
+
+    // 关闭浏览器自动滚动恢复，改用手动定位 hash
+    if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
+
+    // 带 #xxx 进入时（从详情页返回），瞬间定位到对应板块，不要从顶部平滑滑下来
+    function jumpToHash(){
+      var h = location.hash;
+      if(!h || h.length < 2) return;
+      var el = document.querySelector(h);
+      if(el){
+        var root = document.documentElement;
+        root.style.scrollBehavior = 'auto';
+        window.scrollTo(0, el.offsetTop);
+        requestAnimationFrame(function(){ root.style.scrollBehavior = ''; });
+      }
+    }
+    window.addEventListener('load', jumpToHash);
+    setTimeout(jumpToHash, 300);
+    setTimeout(jumpToHash, 800);
+
+    // 占位提示：所有 data-toast 入口给出统一反馈，避免僵尸按钮
+    var toastEl = document.getElementById("toast");
+    var timer = null;
+    function toast(msg){
+      if(!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      if(timer) clearTimeout(timer);
+      timer = setTimeout(function(){ toastEl.classList.remove("show"); }, 2200);
+    }
+    document.querySelectorAll("[data-toast]").forEach(function(el){
+      el.addEventListener("click", function(e){
+        e.preventDefault();
+        toast(el.getAttribute("data-toast"));
+      });
+    });
+
+    // 移动端：侧边导航抽屉
+    var side = document.getElementById("side");
+    var mask = document.getElementById("mask");
+    var burger = document.getElementById("burger");
+    function closeNav(){
+      if(side) side.classList.remove("open");
+      if(mask) mask.classList.remove("show");
+    }
+    if(burger && side && mask){
+      burger.addEventListener("click", function(){
+        side.classList.toggle("open");
+        mask.classList.toggle("show");
+      });
+      mask.addEventListener("click", closeNav);
+      side.querySelectorAll("a").forEach(function(a){
+        a.addEventListener("click", closeNav);
+      });
+    }
+
+    // Scroll-spy：视口 40% 高度线压到哪个板块就高亮哪个
+    var secs = Array.prototype.slice.call(document.querySelectorAll("section[id]"));
+    var links = Array.prototype.slice.call(document.querySelectorAll(".snav a"));
+    function setActive(id){
+      links.forEach(function(a){
+        a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+      });
+    }
+    function spy(){
+      var line = window.innerHeight * 0.5;
+      var current = secs[0].id;
+      secs.forEach(function(s){
+        var r = s.getBoundingClientRect();
+        if(r.top <= line && r.bottom >= line){ current = s.id; }
+      });
+      setActive(current);
+    }
+    var scrollTimer = null;
+    var navClicked = false;
+    window.addEventListener("scroll", function(){
+      if(navClicked) return;
+      if(scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(spy, 100);
+    }, {passive:true});
+    window.addEventListener("resize", spy);
+    // 点击导航：立即高亮，之后用户再手动滚动才恢复自动判断
+    links.forEach(function(a){
+      a.addEventListener("click", function(){
+        var id = a.getAttribute("href").slice(1);
+        setActive(id);
+        navClicked = true;
+        if(scrollTimer) clearTimeout(scrollTimer);
+      });
+    });
+    // 用户手动滚动超过阈值后，解除点击锁定
+    var unlockTimer = null;
+    window.addEventListener("wheel", function(){
+      navClicked = false;
+      if(unlockTimer) clearTimeout(unlockTimer);
+      unlockTimer = setTimeout(spy, 100);
+    }, {passive:true});
+    window.addEventListener("touchmove", function(){
+      navClicked = false;
+    }, {passive:true});
+    spy();
+  }catch(err){
+    // 交互降级：即使脚本异常，页面结构与内容仍然完整可读
+  }
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>差旅壹号服务云平台 · He 天波 · 作品集</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%2323231F'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' fill='%23F7F7F4' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@200;300;400;500&display=swap">
+<style>
+  :root{
+    --paper:#F7F7F4;
+    --ink:#23231F;
+    --stone:#7B7B73;
+    --line:#E5E4DE;
+    --soft:#EFEFEA;
+    --font-sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scrollbar-gutter:stable;}
+  body{
+    background:radial-gradient(120% 90% at 50% -12%, #FFFFFF 0%, #FAFAF7 50%, #ECE9E2 100%);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    font-weight:300;
+    font-size:15px;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--ink);color:var(--paper);}
+  a{color:inherit;}
+
+  /* ===== 顶部面包屑 ===== */
+  .crumbs{
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,20,20,.55);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);-webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .crumbs-in{
+    max-width:1120px;margin:0 auto;padding:0 26px;
+    height:56px;display:flex;align-items:center;gap:10px;
+    font-size:13px;letter-spacing:.05em;color:rgba(255,255,255,.55);
+  }
+  .crumbs .back{
+    display:inline-flex;align-items:center;gap:3px;
+    text-decoration:none;color:#111;
+    padding:3px 12px;margin-right:8px;
+    border:none;border-radius:999px;background:rgba(255,255,255,.9);
+    transition:background .2s,color .2s;
+  }
+  .crumbs .back:hover{background:rgba(255,255,255,.6);color:#111;}
+  .crumbs a{text-decoration:none;color:rgba(255,255,255,.55);transition:color .2s;}
+  .crumbs a:hover{color:#fff;}
+  .crumbs .sep{color:rgba(255,255,255,.25);}
+  .crumbs .cur{color:#fff;font-weight:400;}
+
+  /* ===== 项目头 ===== */
+  .head{
+    max-width:1120px;margin:0 auto;padding:70px 26px 50px;
+  }
+  .eyebrow{font-size:12px;letter-spacing:.2em;color:var(--stone);margin-bottom:16px;}
+  .head h1{font-weight:500;font-size:clamp(28px,3.6vw,42px);letter-spacing:.04em;line-height:1.2;}
+  .head .meta{margin-top:14px;font-size:13.5px;color:var(--stone);letter-spacing:.06em;}
+  .head .desc{margin-top:26px;max-width:64ch;color:var(--stone);font-size:15px;}
+  .head .desc b{color:var(--ink);font-weight:400;}
+
+  /* ===== 作品图列表 ===== */
+  .shots{max-width:1120px;margin:0 auto;padding:0 26px 40px;}
+  .shots figure{margin-bottom:28px;}
+  .shots img{
+    display:block;width:100%;height:auto;
+    border:1px solid var(--line);border-radius:2px;
+    background:var(--soft);
+  }
+
+  /* ===== 底部返回 ===== */
+  .foot{
+    max-width:1120px;margin:0 auto;padding:30px 26px 90px;
+    display:flex;justify-content:center;align-items:center;gap:16px;
+    border-top:1px solid var(--line);
+  }
+  .foot .prev-dis{color:var(--line);}
+  .foot a{
+    text-decoration:none;font-size:18px;letter-spacing:.1em;color:var(--ink);
+    background:transparent;border:1px solid var(--stone);border-radius:999px;
+    padding:10px 24px;
+    transition:background .2s,color .2s;
+    display:inline-flex;align-items:center;gap:4px;
+  }
+  .foot a svg{width:18px;height:18px;}
+  .foot a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  @media (max-width:720px){
+    .head{padding:46px 20px 34px;}
+    .shots{padding:0 20px 24px;}
+    .shots figure{margin-bottom:36px;}
+    .foot{flex-direction:column;padding:26px 20px 64px;}
+    .crumbs-in{padding:0 16px;font-size:12.5px;}
+    .crumbs .back span{display:none;}
+  }
+
+  /* ===== Lightbox 放大查看 ===== */
+  .shots img{cursor:zoom-in;}
+  .lb{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(0,0,0,.88);
+    display:none;align-items:center;justify-content:center;
+  }
+  .lb.open{display:flex;}
+  .lb img{
+    max-width:90vw;max-height:88vh;
+    box-shadow:0 12px 48px rgba(0,0,0,.4);
+    user-select:none;
+  }
+  .lb .lb-btn{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:48px;height:48px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+    color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s;
+  }
+  .lb .lb-btn:hover{background:rgba(255,255,255,.28);}
+  .lb .lb-prev{left:24px;}
+  .lb .lb-next{right:24px;}
+  .lb .lb-close{
+    position:absolute;top:18px;right:22px;
+    width:64px;height:64px;border-radius:50%;
+    background:transparent;border:none;color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .lb .lb-close:hover{opacity:.7;}
+  .lb .lb-count{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.1em;
+  }
+  @media (max-width:720px){
+    .lb .lb-prev{left:8px;}
+    .lb .lb-next{right:8px;}
+  }
+
+  /* ===== 回到顶部悬浮按钮 ===== */
+  .to-top{
+    position:fixed;right:48px;bottom:48px;z-index:90;
+    width:46px;height:46px;border-radius:50%;
+    background:var(--paper);border:1px solid var(--line);
+    color:var(--ink);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(35,35,31,.08);
+    transition:background .2s,color .2s,opacity .2s;
+    opacity:0;pointer-events:none;
+  }
+  .to-top.show{opacity:1;pointer-events:auto;}
+  .to-top:hover{background:var(--ink);color:var(--paper);}
+  @media (max-width:720px){
+    .to-top{right:16px;bottom:16px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 面包屑导航 -->
+<header class="crumbs">
+  <div class="crumbs-in">
+    <a class="back" href="../index.html#ui" title="返回 UI设计列表">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      <span>返回</span>
+    </a>
+    <a href="../index.html#profile">首页</a>
+    <span class="sep">/</span>
+    <a href="../index.html#ui">UI设计</a>
+    <span class="sep">/</span>
+    <span class="cur">差旅壹号服务云平台</span>
+  </div>
+</header>
+
+<!-- 项目头 -->
+<section class="head">
+  <div class="eyebrow">UI Design · SaaS Platform</div>
+  <h1>差旅壹号服务云平台</h1>
+  <div class="meta">差旅管理SaaS系统</div>
+  <p class="desc">
+    主导企业级 SaaS 差旅平台「差旅壹号」全程 UI 与交互设计，参与需求调研、产品方案、UI 交互方案到开发测试验收，覆盖
+    <b>机票、酒店、火车票、网约车、审批报销</b>等业务线，含 <b>App 端、PC 端</b>。
+  </p>
+</section>
+
+<!-- 作品图：从上到下依次展示 -->
+<main class="shots">
+
+  <figure><img src="../assets/work/chailv/01.png" alt="差旅壹号 设计稿 01"></figure>
+  <figure><img src="../assets/work/chailv/02.png" alt="差旅壹号 设计稿 02"></figure>
+  <figure><img src="../assets/work/chailv/03.png" alt="差旅壹号 设计稿 03"></figure>
+  <figure><img src="../assets/work/chailv/04.png" alt="差旅壹号 设计稿 04"></figure>
+  <figure><img src="../assets/work/chailv/05.png" alt="差旅壹号 设计稿 05"></figure>
+  <figure><img src="../assets/work/chailv/06.png" alt="差旅壹号 设计稿 06"></figure>
+  <figure><img src="../assets/work/chailv/07.png" alt="差旅壹号 设计稿 07"></figure>
+  <figure><img src="../assets/work/chailv/08.png" alt="差旅壹号 设计稿 08"></figure>
+  <figure><img src="../assets/work/chailv/09.png" alt="差旅壹号 设计稿 09"></figure>
+  <figure><img src="../assets/work/chailv/10.png" alt="差旅壹号 设计稿 10"></figure>
+  <figure><img src="../assets/work/chailv/11.png" alt="差旅壹号 设计稿 11"></figure>
+  <figure><img src="../assets/work/chailv/12.png" alt="差旅壹号 设计稿 12"></figure>
+  <figure><img src="../assets/work/chailv/13.png" alt="差旅壹号 设计稿 13"></figure>
+  <figure><img src="../assets/work/chailv/14.png" alt="差旅壹号 设计稿 14"></figure>
+  <figure><img src="../assets/work/chailv/15.png" alt="差旅壹号 设计稿 15"></figure>
+  <figure><img src="../assets/work/chailv/16.png" alt="差旅壹号 设计稿 16"></figure>
+  <figure><img src="../assets/work/chailv/17.png" alt="差旅壹号 设计稿 17"></figure>
+  <figure><img src="../assets/work/chailv/18.png" alt="差旅壹号 设计稿 18"></figure>
+  <figure><img src="../assets/work/chailv/19.png" alt="差旅壹号 设计稿 19"></figure>
+  <figure><img src="../assets/work/chailv/20.png" alt="差旅壹号 设计稿 20"></figure>
+  <figure><img src="../assets/work/chailv/21.png" alt="差旅壹号 设计稿 21"></figure>
+  <figure><img src="../assets/work/chailv/22.png" alt="差旅壹号 设计稿 22"></figure>
+  <figure><img src="../assets/work/chailv/23.png" alt="差旅壹号 设计稿 23"></figure>
+  <figure><img src="../assets/work/chailv/24.png" alt="差旅壹号 设计稿 24"></figure>
+
+  <!-- 其他界面UI模块 -->
+  <div style="margin-top:80px;">
+    <div style="font-size:12px;letter-spacing:.2em;color:var(--stone);margin-bottom:10px;">Other UI</div>
+    <h2 style="font-weight:500;font-size:clamp(22px,2.6vw,30px);letter-spacing:.04em;margin-bottom:30px;">其他界面UI</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E5%8D%A0%E5%BA%A7%E6%88%90%E5%8A%9F.png" alt="其他界面 占座成功" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E5%BC%B9%E7%AA%97.png" alt="其他界面 弹窗" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E6%94%AF%E4%BB%98%E6%88%90%E5%8A%9F.png" alt="其他界面 支付成功" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E6%97%B6%E9%97%B4.png" alt="其他界面 时间" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E7%99%BB%E5%BD%95.png" alt="其他界面 登录" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E8%AE%A2%E5%8D%95%E5%A1%AB%E5%86%99.png" alt="其他界面 订单填写" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E8%BD%A6%E8%B4%B9%E6%94%AF%E4%BB%98.png" alt="其他界面 车费支付" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E9%80%9A%E8%AE%AF%E5%BD%95.png" alt="其他界面 通讯录" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E9%85%92%E5%BA%97.png" alt="其他界面 酒店" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E9%85%92%E5%BA%97%E5%9C%B0%E5%9B%BE%E9%80%89%E6%8B%A9.png" alt="其他界面 酒店地图选择" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E9%85%92%E5%BA%97%E8%AE%A2%E5%8D%95%E5%A1%AB%E5%86%99.png" alt="其他界面 酒店订单填写" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+      <figure style="margin:0;"><img src="../assets/work/chailv/other/%E9%85%92%E5%BA%97%E9%80%89%E6%8B%A9.png" alt="其他界面 酒店选择" loading="lazy" style="width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--soft);"></figure>
+    </div>
+  </div>
+
+</main>
+
+<!-- 底部 -->
+<footer class="foot">
+  <a href="../index.html#ui">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    返回
+  </a>
+</footer>
+
+<!-- Lightbox 放大查看 -->
+<button class="to-top" id="toTop" aria-label="回到顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="关闭">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一张">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="下一张">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  try{
+    var imgs = Array.prototype.slice.call(document.querySelectorAll(".shots img"));
+    var lb = document.getElementById("lb");
+    var lbImg = document.getElementById("lbImg");
+    var lbCount = document.getElementById("lbCount");
+    var idx = 0;
+    function show(i){
+      idx = (i + imgs.length) % imgs.length;
+      lbImg.src = imgs[idx].src;
+      lbImg.alt = imgs[idx].alt || "";
+      lbCount.textContent = (idx+1) + " / " + imgs.length;
+    }
+    function open(i){
+      show(i);
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function close(){
+      lb.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    imgs.forEach(function(img, i){
+      img.addEventListener("click", function(){ open(i); });
+    });
+    document.getElementById("lbClose").addEventListener("click", close);
+    document.getElementById("lbPrev").addEventListener("click", function(e){ e.stopPropagation(); show(idx-1); });
+    document.getElementById("lbNext").addEventListener("click", function(e){ e.stopPropagation(); show(idx+1); });
+    lb.addEventListener("click", function(e){ if(e.target === lb) close(); });
+    window.addEventListener("keydown", function(e){
+      if(!lb.classList.contains("open")) return;
+      if(e.key === "Escape") close();
+      else if(e.key === "ArrowLeft") show(idx-1);
+      else if(e.key === "ArrowRight") show(idx+1);
+    });
+    // 灯箱打开时鼠标滚轮翻页（带防抖）
+    var lbWheelLock = 0;
+    lb.addEventListener("wheel", function(e){
+      if(!lb.classList.contains("open")) return;
+      e.preventDefault();
+      if(Date.now() < lbWheelLock) return;
+      if(Math.abs(e.deltaY) < 12) return;
+      lbWheelLock = Date.now() + 600;
+      show(e.deltaY > 0 ? idx+1 : idx-1);
+    }, {passive:false});
+
+    // 回到顶部按钮：滚动超过 400px 才显示
+    var toTop = document.getElementById("toTop");
+    window.addEventListener("scroll", function(){
+      if(window.scrollY > 400) toTop.classList.add("show");
+      else toTop.classList.remove("show");
+    }, {passive:true});
+    toTop.addEventListener("click", function(){
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  }catch(err){}
+})();
+</script>
+
+</body>
+</html>
