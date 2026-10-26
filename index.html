@@ -394,7 +394,7 @@
     font-size:104px;letter-spacing:0;white-space:nowrap;
     /* 左右 padding 扩大渐变背景区域（容纳手写体字形溢出），负 margin 抵消保持位置不变 */
     padding-left:50px;padding-right:50px;margin-left:-50px;margin-right:-50px;
-    transform:translateX(-52px); /* 左移与中文标题重叠交错 */
+    transform:translateX(-52px) translateY(10px); /* 左移重叠 + 英文下移 */
     background:linear-gradient(90deg,#42ADFF,#FF6619);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
@@ -573,7 +573,7 @@
       radial-gradient(130% 100% at 0% 0%, rgba(66,173,255,.16) 0%, rgba(66,173,255,.03) 48%, transparent 72%),
       linear-gradient(165deg, rgba(255,255,255,.055) 0%, rgba(255,255,255,.015) 52%, rgba(0,0,0,.28) 100%),
       rgba(11,15,24,.72);
-    border:1px solid rgba(120,200,255,.18);
+    border:1px solid rgba(255,255,255,.14);
     box-shadow:inset 0 0 26px rgba(66,173,255,.06), 0 8px 28px rgba(0,0,0,.35);
     transition:all .35s cubic-bezier(.2,.7,.2,1);
   }
@@ -586,7 +586,7 @@
 
   .tl-grid .tl-item:hover{
     transform:translateY(-6px) scale(1.03);
-    border-color:rgba(66,173,255,.55);
+    border-color:rgba(66,173,255,.85);
     box-shadow:inset 0 0 30px rgba(66,173,255,.10), 0 14px 40px rgba(66,173,255,.14);
   }
   /* 悬停流光：沿卡片顶部边缘扫过的蓝橙渐变光条 */
@@ -639,10 +639,19 @@
 
   /* ===== 作品网格 ===== */
   .works{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;}
-  .work{display:block;}
+  .work{display:block;position:relative;}
+  /* hover 阴影层：独立于 clip-path 的封面，避免被圆角裁剪 */
+  .work::before{
+    content:"";position:absolute;left:0;right:0;top:0;z-index:0;
+    border-radius:26px;aspect-ratio:16/9;
+    box-shadow:12px 12px 30px rgba(0,80,200,.25);
+    opacity:0;transition:opacity .4s;pointer-events:none;
+  }
+  .work:hover::before{opacity:1;}
   .work-cover{
     aspect-ratio:16/9;background:var(--bg);overflow:hidden;border-radius:26px;
-    position:relative;
+    position:relative;z-index:1;
+    clip-path:inset(0 round 26px); /* 强制裁剪含 transform 在内的所有子层，杜绝圆角漏边 */
   }
   .work-cover img{
     width:100%;height:100%;object-fit:cover;
@@ -658,13 +667,12 @@
   .work-cover::before{
     content:"";position:absolute;inset:0;z-index:2;
     background:linear-gradient(to bottom right,rgba(0,0,0,0) 10%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.78) 80%,rgba(0,0,0,.88) 100%);
-    /* 不设圆角：由容器 overflow:hidden 统一裁剪，与容器共享同一弧线，杜绝边缘漏图 */
     pointer-events:none;
     transition:opacity .4s;
   }
   
   .work:hover .work-cover img{transform:scale(1.04);filter:saturate(1);-webkit-mask-image:none;mask-image:none;}
-  .work:hover .work-cover{box-shadow:12px 12px 30px rgba(0,80,200,.25);}
+
   .work-cover::after{
     content:"View →";position:absolute;top:50%;left:50%;
     transform:translate(-50%,-50%) scale(.9);
@@ -684,7 +692,7 @@
   .work-cat{font-size:11px;color:var(--fg3);letter-spacing:.05em;border:1px solid #666;color:#aaa;padding:2px 10px;border-radius:999px;}
 
   /* 视频封面 */
-  .video-cover{aspect-ratio:16/9;background:var(--bg);overflow:hidden;position:relative;border-radius:25px;}
+  .video-cover{aspect-ratio:16/9;background:var(--bg);overflow:hidden;position:relative;z-index:1;border-radius:26px;clip-path:inset(0 round 26px);}
   .video-cover img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s;position:relative;z-index:1;display:block;filter:saturate(.5);}
   .video-cover::before{
     content:"";position:absolute;inset:0;z-index:2;
@@ -695,21 +703,22 @@
   
   .work:hover .video-cover img{transform:scale(1.04);filter:saturate(1) !important;}
   .play-btn{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:60px;height:60px;border-radius:50%;
-    background:rgba(255,255,255,.1);backdrop-filter:blur(20px);
-    display:flex;align-items:center;justify-content:center;
-    
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);
+    background:rgba(0,0,0,.5);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    padding:12px 28px;border-radius:26px;box-shadow:0 4px 20px rgba(0,0,0,.5);
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    font-family:var(--font-en);font-size:14px;font-weight:600;letter-spacing:.1em;color:#fff;
+    opacity:0;transition:opacity .3s,transform .3s;
     z-index:3;
   }
-  .play-btn svg{width:24px;height:24px;fill:#fff;margin-left:4px;}
+  .work:hover .play-btn{opacity:1;transform:translate(-50%,-50%) scale(1);animation:btnPulse 1.2s ease-in-out infinite;}
 
   /* ===== 底部 ===== */
   .footer{
     position:relative;
     padding:140px 48px 80px;text-align:center;
   }
-  /* 底部 thank you 上方分割线：与“关于我”上方光影分割线同款（中间高亮、两端渐隐） */
+  /* 底部 thank you 上方分割线：整条光影线（两端渐隐、中间高亮） */
   .footer::before{
     content:"";position:absolute;top:70px;left:8%;width:84%;height:2px;pointer-events:none;
     background:linear-gradient(90deg,
@@ -723,10 +732,33 @@
     font-family:var(--font-en);font-weight:700;
     font-size:clamp(48px,8vw,112px);
     line-height:1;letter-spacing:-.03em;color:#fff;
+    display:flex;align-items:center;justify-content:center;gap:.28em;
   }
+  /* thank you 左侧方框：仅左上角 L 线 + 右下角 L 线（开口，非闭环矩形），四角放“感谢查阅” */
+  .footer-frame{
+    position:relative;display:inline-block;width:.7em;height:.7em;flex:none;
+  }
+  .footer-frame::before{ /* 左上角：上边左段 + 左边上段 */
+    content:"";position:absolute;top:0;left:0;width:50%;height:50%;
+    border-top:4px solid rgba(255,255,255,.55);
+    border-left:4px solid rgba(255,255,255,.55);
+  }
+  .footer-frame::after{ /* 右下角：下边右段 + 右边下段 */
+    content:"";position:absolute;right:0;bottom:0;width:50%;height:50%;
+    border-right:4px solid rgba(255,255,255,.55);
+    border-bottom:4px solid rgba(255,255,255,.55);
+  }
+  .footer-frame i{
+    position:absolute;font-style:normal;font-family:var(--font-cn);font-weight:400;
+    font-size:.19em;line-height:1;color:rgba(255,255,255,.7);
+  }
+  .footer-frame .tl{top:15%;left:15%;}
+  .footer-frame .tr{top:15%;right:15%;}
+  .footer-frame .bl{bottom:15%;left:15%;}
+  .footer-frame .br{bottom:15%;right:15%;}
   /* 微笑表情：小一号字号，上下缓慢飘动 */
   .footer-thanks .footer-smile{
-    display:inline-block;font-size:.55em;vertical-align:5px;margin-left:.08em;filter:sepia(.9) saturate(2.4) hue-rotate(-8deg) brightness(.85) contrast(1.05);
+    display:inline-block;font-size:.55em;margin-top:16px;margin-left:-.05em;filter:sepia(.9) saturate(2.4) hue-rotate(-8deg) brightness(.85) contrast(1.05);
     animation:footerSmileFloat 3s ease-in-out infinite;
   }
   @keyframes footerSmileFloat{
@@ -735,6 +767,14 @@
   }
   .footer-sub{
     margin-top:40px;font-size:20px;letter-spacing:.4em;color:rgba(255,255,255,.8);
+  }
+  /* 底部小字说明：AI 实现声明 */
+  .footer-ai{
+    margin-top:44px;font-size:12px;letter-spacing:.3em;color:rgba(255,255,255,.35);
+    font-family:var(--font-cn);font-weight:400;
+  }
+  .footer-ai-icon{
+    display:inline-block;font-size:.95em;margin-right:.6em;vertical-align:0;letter-spacing:0;
   }
 
   /* ===== Toast ===== */
@@ -762,6 +802,65 @@
     .works{grid-template-columns:1fr;gap:32px;}
     .tl-grid{grid-template-columns:1fr;}
     .footer{padding:100px 24px 60px;}
+
+    /* ===== 移动端新增修复 ===== */
+    /* 横向溢出兜底：禁止因花体字/大元素产生横向滚动 */
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .section,.cover,.footer{overflow:hidden;max-width:100vw;}
+    .container{max-width:100%;}
+    /* 手机端隐藏两侧超大装饰星球（±52vw），它们是横向溢出主因 */
+    .edge-planet{display:none;}
+
+    /* Hero 封面区：整体收紧，避免大标题溢出 */
+    .cover{height:844px;}
+    .cover-eyebrow{margin-top:0;gap:14px;margin-bottom:16px;}
+    .cover-eyebrow .tag{font-size:38px;top:-6px;}
+    .cover-eyebrow .year{font-size:18px;padding:2px 14px;letter-spacing:.08em;}
+    .cover-portfolio{
+      font-size:40px;letter-spacing:.02em !important;padding:0 .2em;margin-bottom:14px;
+      animation:risePortfolio 2.5s cubic-bezier(.2,.7,.2,1) 1s forwards, textFlow 5s linear 3s infinite;
+    }
+    .cover-name{
+      font-size:44px;letter-spacing:.1em;padding:0 .5em;margin-bottom:14px;
+    }
+    .cover-role{
+      margin-top:22px;font-size:12.5px;letter-spacing:.16em;padding:8px 16px;
+    }
+    /* 移动端 Hero 文字立即可见（动画照常播放，仅保证任何时机不空白） */
+    .cover-eyebrow,.cover-portfolio,.cover-name,.cover-role{opacity:1;}
+    .cover-scroll{bottom:22px;}
+
+    /* 板块英文花体副标题：缩小避免溢出 */
+    #about .section-num{font-size:62px;padding:0 16px;top:36px;}
+    #about .section-title{font-size:38px;}
+    #ui .section-num,#poster .section-num,#motion .section-num,#video .section-num{
+      font-size:54px;padding:0 16px;margin:0;
+      transform:translateX(-14px) translateY(8px);
+    }
+    #ui .section-head,#poster .section-head,#motion .section-head,#video .section-head{
+      margin-left:0;gap:0;
+    }
+    .section-title{font-size:36px;}
+
+    /* 关于我：自我介绍 */
+    .about-intro h3{font-size:22px;}
+    .about-intro p{font-size:14px;line-height:1.8;}
+    .chip{font-size:11px;padding:5px 12px;}
+    /* 跑马灯标签：手机端改为自动换行排列，关闭横向滚动，避免撑宽整页 */
+    .chips{max-width:100%;overflow:visible;flex-wrap:wrap;clip-path:none;
+      -webkit-mask-image:none;mask-image:none;padding:8px 0;}
+    .chips-track{animation:none;flex-wrap:wrap;width:100%;flex-shrink:1;padding-right:0;}
+
+    /* 工作经历卡片：收紧内边距；grid 轨道强制收缩，防止长内容撑宽 */
+    #about .about-grid{grid-template-columns:minmax(0,1fr);}
+    .tl-grid{grid-template-columns:minmax(0,1fr);}
+    .tl-grid .tl-item{padding:18px 18px;overflow-wrap:break-word;word-break:break-word;}
+    .tl-role{font-size:16px;}
+    .tl-desc{font-size:13px;line-height:1.7;overflow-wrap:break-word;word-break:break-word;}
+
+    /* 底部感谢区 */
+    .footer-thanks{font-size:36px;gap:.2em;}
+    .footer-ai{font-size:11px;letter-spacing:.15em;padding:0 10px;line-height:1.9;}
   }
   #stars{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}  .cover-ring{position:absolute;inset:0;z-index:4;pointer-events:none;border-radius:26px;}
   /* 页面两侧特大星球：参考“关于我”上方星球（.spot-planet）的光影结构绘制，
@@ -1047,7 +1146,7 @@
       <a class="work" href="work/video-totoo.html">
         <div class="video-cover">
           <img src="assets/work/video/cover.webp" alt="Totoo视频">
-          <span class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="play-btn">View →</span>
         </div>
         <div class="work-info">
           <span class="work-name">AI制作产品宣传片</span>
@@ -1057,7 +1156,7 @@
       <a class="work" href="work/video-annual.html">
         <div class="video-cover">
           <img src="assets/work/video/cover2.webp" alt="运营活动视频">
-          <span class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="play-btn">View →</span>
         </div>
         <div class="work-info">
           <span class="work-name">AE制作运营活动视频</span>
@@ -1070,8 +1169,8 @@
 
 <!-- ===== 底部 ===== -->
 <footer class="footer">
-  <div class="footer-thanks">thank you <span class="footer-smile" aria-hidden="true">😊</span></div>
-  <div class="footer-sub">感谢您的查阅！</div>
+  <div class="footer-thanks"><span class="footer-frame"><i class="tl">感</i><i class="tr">谢</i><i class="bl">查</i><i class="br">阅</i></span>thank you <span class="footer-smile" aria-hidden="true">😊</span></div>
+  <div class="footer-ai"><span class="footer-ai-icon">ⓘ</span>此网站由AI实现，仅供作品展示</div>
 </footer>
 
 <div id="toast"></div>
